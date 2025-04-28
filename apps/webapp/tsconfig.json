@@ -1,0 +1,13 @@
+{
+  "extends": "@monorepo/tsconfig/nextjs.json",
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "jest.setup.js",
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./"
+  }
+}

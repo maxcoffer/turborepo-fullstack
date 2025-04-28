@@ -1,0 +1,38 @@
+{
+  "name": "turborepo-fullstack",
+  "description": "Monorepo starter for NestJS, NextJS in TypeScript driven by Turborepo and prepared for customized Vercel deployment.",
+  "keywords": [
+    "turborepo",
+    "nextjs",
+    "nestjs",
+    "vercel"
+  ],
+  "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxcoffer/turborepo-fullstack.git"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "turbo": "^2.5.2",
+    "typescript": "5.8.3"
+  },
+  "engines": {
+    "node": ">=22.15.0",
+    "npm": ">=10.9.2"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@nestjs/core"
+    ]
+  }
+}

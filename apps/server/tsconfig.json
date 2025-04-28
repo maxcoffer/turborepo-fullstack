@@ -1,0 +1,7 @@
+{
+  "extends": "@monorepo/tsconfig/nestjs.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./"
+  }
+}
