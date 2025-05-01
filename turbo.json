@@ -2,13 +2,10 @@
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
   "globalEnv": [
-    "NODE_ENV",
-    "SERVER_PORT"
+    "GITHUB_TOKEN",
+    "NODE_ENV"
   ],
-  "globalDependencies": [
-    ".env",
-    "tsconfig.json"
-  ],
+  "globalDependencies": [".env"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -23,7 +20,8 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": ["NEXT_PUBLIC_SERVER_HOST"]
     },
     "test": {
       "cache": false
