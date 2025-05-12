@@ -1,0 +1,14 @@
+{
+  "extends": "@translux/tsconfig/nextjs.json",
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "jsx": "react",
+  },
+  "paths": {
+    "react": ["./node_modules/@types/react"],
+  },
+}

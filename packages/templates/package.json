@@ -1,0 +1,22 @@
+{
+  "name": "@translux/templates",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "email dev",
+    "export": "email export"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@react-email/components": "0.0.38",
+    "@react-email/tailwind": "1.0.5",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "react-email": "4.0.11",
+    "@types/react": "^19.1.2"
+  }
+}
