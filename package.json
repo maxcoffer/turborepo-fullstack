@@ -1,10 +1,13 @@
 {
   "name": "turborepo-fullstack",
   "description": "Monorepo starter for NestJS, NextJS in TypeScript driven by Turborepo and prepared for customized Vercel deployment.",
+  "private": true,
   "keywords": [
     "turborepo",
     "nextjs",
     "nestjs",
+    "drizzle",
+    "apollo",
     "vercel"
   ],
   "version": "0.0.1",
@@ -22,7 +25,7 @@
   },
   "devDependencies": {
     "prettier": "^3.5.3",
-    "turbo": "^2.5.2",
+    "turbo": "^2.5.3",
     "typescript": "5.8.3"
   },
   "engines": {

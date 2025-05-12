@@ -2,6 +2,7 @@
   "name": "@monorepo/server",
   "version": "0.0.1",
   "description": "NestJS server application",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "build": "nest build",

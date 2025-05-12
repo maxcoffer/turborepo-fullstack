@@ -1,0 +1,20 @@
+{
+  "name": "@monorepo/database",
+  "version": "0.0.1",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "drizzle-graphql": "^0.8.5",
+    "drizzle-orm": "^0.43.1",
+    "graphql": "^16.11.0"
+  },
+  "devDependencies": {
+    "@monorepo/tsconfig": "workspace:*",
+    "drizzle-kit": "^0.31.1",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,18 +1,18 @@
-import eslint from "@eslint/js";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
-import globals from "globals";
-import tseslint from "typescript-eslint";
+import eslint from '@eslint/js';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import globals from 'globals';
+import tslint from 'typescript-eslint';
 
-import { config as baseConfig } from "@monorepo/config/eslint.base";
+import { config as baseConfig } from "@translux/config/eslint.base";
 
 /** @type {import("eslint").Linter.Config} */
-export default tseslint.config(
+export default tslint.config(
   ...baseConfig,
   {
     ignores: ['eslint.config.mjs'],
   },
   eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
+  ...tslint.configs.recommendedTypeChecked,
   eslintPluginPrettierRecommended,
   {
     languageOptions: {
@@ -29,9 +29,15 @@ export default tseslint.config(
   },
   {
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn'
+      semi: 'error',
+      quotes: ['error', 'single'],
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/require-await': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      'turbo/no-undeclared-env-vars': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off'
     },
   },
 );
