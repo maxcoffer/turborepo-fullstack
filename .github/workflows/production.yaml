@@ -1,0 +1,129 @@
+name: Production Deployment
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'Project'
+        required: true
+        default: '@monorepo/webapp'
+        type: choice
+        options:
+          - '@monorepo/server'
+          - '@monorepo/webapp'
+
+jobs:
+  changed-server:
+    name: Check Server Changes
+    if: inputs.project == '@monorepo/server' || inputs.project == '@monorepo/webapp' || always()
+    uses: ./.github/workflows/changed-packages.yml
+    with:
+      # The name of the turbo workspace (i.e., name in package.json)
+      workspace_name: '@monorepo/server'
+      base_ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+
+  publish_server:
+    name: Build and Publish Server
+    needs: [changed-server]
+    # This job only runs when the 'output' of the `changed-server` job is `true`,
+    # or if the input project for manual trigger is set to '@monorepo/server'.
+    if: ${{ github.event.pull_request.merged == true && (needs.changed-server.outputs.changed == 'true' || inputs.project == '@monorepo/server') }}
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_TEAM_ID }}
+      VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_SERVER }}
+      VERCEL_CONFIG: 'apps/server/vercel.json'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Cache turbo build setup
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
+      - name: Setup environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pnpm globally
+        uses: pnpm/action-setup@v4 
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Vercel CLI
+        run: pnpm add --global vercel@latest
+
+      - name: Link Vercel project
+        run: vercel link --token ${{ secrets.VERCEL_TOKEN }} --yes
+
+      - name: Build with Vercel CLI
+        run: vercel build --prod --local-config ${{ env.VERCEL_CONFIG }} --token ${{ secrets.VERCEL_TOKEN }} --yes
+
+      - name: Deploy to Vercel
+        run: vercel deploy --prod --prebuilt --local-config ${{ env.VERCEL_CONFIG }} --token ${{ secrets.VERCEL_TOKEN }}
+      
+  changed-webapp:
+    name: Check Web Application Changes
+    if: inputs.project == '@monorepo/webapp' || always()
+    uses: ./.github/workflows/changed-packages.yml
+    with:
+      # The name of the turbo workspace (i.e., name in package.json)
+      workspace_name: '@monorepo/webapp'
+      base_ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+
+  publish_webapp:
+    name: Build and Publish Web Application
+    needs: [changed-webapp]
+    # This job only runs when the 'output' of the `changed-webapp` job is `true`,
+    # or if the input project for manual trigger is set to '@monorepo/webapp'.
+    if: ${{ github.event.pull_request.merged == true && (needs.changed-webapp.outputs.changed == 'true' || inputs.project == '@monorepo/webapp') }}
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_TEAM_ID }}
+      VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_WEBAPP }}
+      VERCEL_CONFIG: 'apps/webapp/vercel.json'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Cache turbo build setup
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
+      - name: Setup environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Vercel CLI
+        run: pnpm add --global vercel@latest
+
+      - name: Link Vercel project
+        run: vercel link --token ${{ secrets.VERCEL_TOKEN }} --yes
+
+      - name: Build with Vercel CLI
+        run: vercel build --prod --local-config ${{ env.VERCEL_CONFIG }} --token ${{ secrets.VERCEL_TOKEN }} --yes
+      
+      - name: Deploy to Vercel
+        run: vercel deploy --prebuilt --prod --local-config ${{ env.VERCEL_CONFIG }} --token ${{ secrets.VERCEL_TOKEN }}

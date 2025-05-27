@@ -2,6 +2,8 @@
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
   "globalEnv": [
+    "VERCEL_TOKEN",
+    "VERCEL_TEAM_ID",
     "GITHUB_TOKEN",
     "NODE_ENV"
   ],
@@ -10,7 +12,7 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
