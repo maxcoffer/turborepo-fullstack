@@ -1,5 +1,6 @@
 {
   "extends": ["//"],
+  "globalEnv": ["SERVER_PORT"],
   "tasks": {
     "build": {
       "outputs": ["dist/**"]
