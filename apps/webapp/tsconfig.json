@@ -8,6 +8,7 @@
     ".next/types/**/*.ts"
   ],
   "compilerOptions": {
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "types": ["node", "react", "react-dom"]
   }
 }

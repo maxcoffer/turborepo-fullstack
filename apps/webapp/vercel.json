@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "public": false,
+  "github": {
+    "enabled": false
+  },
+  "framework": "nextjs",
+  "buildCommand": "turbo run build --filter=@monorepo/webapp --only"
+}

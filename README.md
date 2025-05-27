@@ -4,7 +4,13 @@ This mono repository uses [Turporepo](https://turborepo.com/docs) and includes a
 
 ## Getting Started
 
-First, install pnpm globally with `npm install -g pnpm` run the development server:
+Use proper [Node.js](https://nodejs.org/en) version:
+
+```bash
+nvm use
+```
+
+Install pnpm globally with `npm install -g pnpm` run the development server:
 
 ```bash
 pnpm install
@@ -21,7 +27,12 @@ pnpm dev
 
 ### Local Development
 
-[Docker](https://docker.com) used for local development, so it need to be installed on local machine.
+Optionally, copy `.env.example` for each of the packages located in `apps/` folder:
+
+```bash
+cp apps/webapp/.env.example .env
+cp apps/server/.env.example .env
+```
 
 ### Remote Caching
 
@@ -41,4 +52,4 @@ To learn more about Next.js, take a look at the following resources:
 
 ## Continues Integration
 
-GitHub Actions used for CI (Continues Integration) pipeline and custom deployment to [Vercel](https://vercel.com/home). Deperend on the infrostructure provider it could be changed to any like AWS or CloudFlare.
+GitHub Actions used for CI (Continues Integration) pipeline and custom deployment to [Vercel](https://vercel.com/home). Deperend on the infrostructure provider it could be changed to any other, like AWS or CloudFlare. See full documentation on CI pipeline setup in [RELEASE.md](RELEASE.md)
