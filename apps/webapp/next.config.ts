@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api",
-        destination: process.env.NEXT_PUBLIC_SERVER_HOST ?? 'http://localhost:3001',
+        destination: process.env.NEXT_PUBLIC_SERVER_HOST || 'http://localhost:3001',
       },
     ];
   }
