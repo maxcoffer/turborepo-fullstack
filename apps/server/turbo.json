@@ -1,9 +1,13 @@
 {
   "extends": ["//"],
-  "globalEnv": ["SERVER_PORT"],
   "tasks": {
+    "dev": {
+      "persistent": true,
+      "outputs": ["dist/**"],
+      "env": ["SERVER_PORT"]
+    },
     "build": {
-      "outputs": ["dist/**"]
+      "outputs": ["api/**"]
     }
   }
 }

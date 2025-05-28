@@ -2,8 +2,6 @@
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
   "globalEnv": [
-    "VERCEL_TOKEN",
-    "VERCEL_TEAM_ID",
     "GITHUB_TOKEN",
     "NODE_ENV"
   ],

@@ -1,20 +1,16 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "public": false,
   "github": {
     "enabled": false
   },
-  "builds": [
+  "outputDirectory": "api",
+  "buildCommand": "turbo run build --filter=@monorepo/server --only",
+  "rewrites": [
     {
-      "src": "src/main.ts",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/main.ts",
-      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+      "source": "/(.*)",
+      "destination": "src/main.ts"
     }
   ]
 }
