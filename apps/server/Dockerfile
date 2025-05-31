@@ -48,7 +48,7 @@ COPY --from=pruner /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY --from=pruner /app/out/json/ .
 
 # Copy Turborepo configuration
-COPY --from=turbo /app/turbo.json ./turbo.json
+COPY --from=pruner /app/turbo.json ./turbo.json
 
 # First install only production deps and cache them, then install all deps
 RUN --mount=type=cache,id=s/6be82436-ee3a-4108-bce9-29e2bc8cb307-/root/.local/share/pnpm/store/v3,target=/root/.local/share/pnpm/store/v3 pnpm install --frozen-lockfile
