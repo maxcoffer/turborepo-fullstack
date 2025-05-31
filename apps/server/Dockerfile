@@ -44,14 +44,14 @@ RUN turbo run build --filter=@monorepo/server
 # Switch deps over to production only and prune out not needed files
 RUN rm -rf node_modules && mv node_modules_production node_modules && apk --no-cache add curl && curl -sf https://gobinaries.com/tj/node-prune | sh && node-prune
 
-FROM base AS runner
+# FROM base AS runner
 # Don't run production as root
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 user
-RUN chown -R user:nodejs /app
-USER user
+# RUN addgroup --system --gid 1001 nodejs
+# RUN adduser --system --uid 1001 user
+# RUN chown -R user:nodejs /app
+# USER user
 
-COPY --from=runner --chown=user:nodejs /app .
+# COPY --from=runner --chown=user:nodejs /app .
 
 WORKDIR /app/apps/server
 
