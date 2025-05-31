@@ -51,7 +51,7 @@ RUN adduser --system --uid 1001 user
 RUN chown -R user:nodejs /app
 USER user
 
-COPY --from=builder --chown=user:nodejs /app .
+COPY --from=runner --chown=user:nodejs /app .
 
 WORKDIR /app/apps/server
 
