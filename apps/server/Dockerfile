@@ -18,6 +18,8 @@ FROM base AS pruner
 ARG PROJECT=@monorepo/server
 
 COPY . .
+ECHO "Pruning project ${PROJECT} from monorepo"
+RUN ls -la
 RUN turbo prune --scope=${PROJECT} --docker
 
 # Build Project
