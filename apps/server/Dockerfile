@@ -9,7 +9,6 @@ WORKDIR /app
 # Separate step to get a pruned version of the monorepository
 FROM base AS turbo
 RUN npm install -g turbo@^2
-RUN pnpm config set store-dir /root/.local/share/pnpm/store/v3
 COPY . .
 RUN turbo prune --scope=@monorepo/server --docker
 
@@ -27,6 +26,7 @@ COPY --from=turbo /app/turbo.json ./turbo.json
 # Install dependencies needed for local development
 RUN npm install -g pnpm@9.0.0
 RUN pnpm install --frozen-lockfile
+RUN pnpm config set store-dir /root/.local/share/pnpm/store/v3
 
 # First install only production deps and cache them, then install all deps
 RUN --mount=type=cache,id=s/6be82436-ee3a-4108-bce9-29e2bc8cb307-/root/.local/share/pnpm/store/v3,target=/root/.local/share/pnpm/store/v3 pnpm install --omit=dev --ignore-scripts && cp -R node_modules node_modules_production && pnpm install
