@@ -15,7 +15,7 @@ importers:
         specifier: ^3.5.3
         version: 3.5.3
       turbo:
-        specifier: ^2.5.3
+        specifier: ^2.5.4
         version: 2.5.4
       typescript:
         specifier: 5.8.3

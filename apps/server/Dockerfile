@@ -3,12 +3,9 @@ FROM node:22.15.0-alpine AS base
 # This Dockerfile uses partial monorepo strategy for backend server.
 # More details here: https://turborepo.com/docs/guides/tools/docker
 
-# Set working directory
-WORKDIR /app
-
 # Separate step to get a pruned version of the monorepository
 FROM base AS turbo
-RUN npm install -g turbo@^2
+RUN npm install turbo@^2 --global --no-cache
 COPY . .
 RUN turbo prune --scope=@monorepo/server --docker
 
@@ -38,6 +35,9 @@ COPY --from=turbo /app/out/full/ .
 ARG TURBO_TOKEN
 ARG TURBO_TEAM
 ARG TURBO_API
+
+# Set working directory
+WORKDIR /app
 
 # Build the project
 RUN turbo run build --filter=@monorepo/server
