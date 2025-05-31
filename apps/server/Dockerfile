@@ -1,4 +1,4 @@
-FROM node:22.15.0-alpine AS base\
+FROM node:22.15.0-alpine AS base
 
 # This Dockerfile uses partial monorepo strategy for backend server.
 # More details here: https://turborepo.com/docs/guides/tools/docker
