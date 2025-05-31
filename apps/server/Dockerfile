@@ -15,7 +15,7 @@ RUN pnpm config set store-dir /root/.local/share/pnpm/store/v3
 
 # Prune projects
 FROM base AS pruner
-ARG PROJECT=@monorepo/server
+ARG PROJECT=server
 
 # Set working directory
 WORKDIR /app
@@ -24,7 +24,7 @@ RUN turbo prune --scope=${PROJECT} --docker
 
 # Build Project
 FROM base AS builder
-ARG PROJECT=@monorepo/server
+ARG PROJECT=server
 
 # Railway service used to cache pnpm store
 # But unfortunately it needs to be hardcoded
