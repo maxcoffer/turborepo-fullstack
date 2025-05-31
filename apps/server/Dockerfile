@@ -10,7 +10,7 @@ COPY . .
 RUN turbo prune --scope=@monorepo/server --docker
 
 # Separate step to install dependencies, most of this will be cached if dependencies wont change
-FROM base AS builder
+FROM turbo AS builder
 RUN apk update
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
