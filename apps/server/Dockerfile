@@ -19,8 +19,6 @@ ARG PROJECT=@monorepo/server
 
 WORKDIR /app
 COPY . .
-RUN echo 'Pruning project ${PROJECT} from monorepo'
-RUN ls -la
 RUN turbo prune --scope=${PROJECT} --docker
 
 # Build Project
