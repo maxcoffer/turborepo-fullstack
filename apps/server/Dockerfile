@@ -27,8 +27,11 @@ COPY --from=turbo /app/turbo.json ./turbo.json
 RUN npm install -g pnpm@9.0.0
 RUN pnpm install --frozen-lockfile
 
+# Specify the variable you need
+ARG RAILWAY_SERVICE_ID
+
 # First install only production deps and cache them, then install all deps
-RUN --mount=type=cache,id=12345,target=/var/cache/npm pnpm install --omit=dev --ignore-scripts && cp -R node_modules node_modules_production && pnpm install
+RUN --mount=type=cache,id=s/${RAILWAY_SERVICE_ID}-/root/.local/share/pnpm/store/v3,target=/root/.local/share/pnpm/store/v3 pnpm install --omit=dev --ignore-scripts && cp -R node_modules node_modules_production && pnpm install
 # Then copy over the application files (change often, no longer cached from this step on)
 COPY --from=turbo /app/out/full/ .
 
