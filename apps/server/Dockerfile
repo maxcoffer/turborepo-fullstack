@@ -28,7 +28,7 @@ RUN npm install -g pnpm@9.0.0
 RUN pnpm install --frozen-lockfile
 
 # First install only production deps and cache them, then install all deps
-RUN --mount=type=cache,target=/var/cache/npm pnpm install --omit=dev --ignore-scripts && cp -R node_modules node_modules_production && pnpm install
+RUN --mount=type=cache,id=12345,target=/var/cache/npm pnpm install --omit=dev --ignore-scripts && cp -R node_modules node_modules_production && pnpm install
 # Then copy over the application files (change often, no longer cached from this step on)
 COPY --from=turbo /app/out/full/ .
 
