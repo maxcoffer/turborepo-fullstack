@@ -68,8 +68,7 @@ ARG PROJECT_PATH=server
 # Don't run production as root
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nodejs
-RUN chown -R user:nodejs /app
-USER user
+USER nodejs
 
 WORKDIR /app
 COPY --from=builder --chown=nodejs:nodejs /app .
