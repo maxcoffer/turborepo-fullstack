@@ -17,8 +17,6 @@ RUN pnpm config set store-dir /root/.local/share/pnpm/store/v3
 FROM base AS pruner
 ARG PROJECT=@monorepo/server
 
-# Set working directory
-WORKDIR /app
 COPY . .
 RUN turbo prune --scope=${PROJECT} --docker
 
